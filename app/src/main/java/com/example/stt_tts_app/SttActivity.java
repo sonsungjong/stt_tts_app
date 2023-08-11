@@ -77,12 +77,17 @@ public class SttActivity extends AppCompatActivity {
 
             @Override
             public void onEndOfSpeech() {
-
+                // 사람이 말한 것의 끝시점에 호출
             }
 
             @Override
             public void onError(int i) {
-                Log.e("SpeechRecognition", "Error code: " + i);
+                if(i == SpeechRecognizer.ERROR_NO_MATCH){
+                    // 일정 시간 동안 말이 없으면 발생하는 에러... 원인 분석이 필요 - 일단은 리스너 재실행
+                    if (flag == true) {
+                        speech_recognizer.startListening(recognizer_intent);
+                    }
+                }
             }
 
             @Override

@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         go_stt_btn = findViewById(R.id.go_stt_btn);
 
         // tts 생성
+        /*
+        안드로이드
+        설정 -> 일반 -> 글자 읽어주기 -> 기본 엔진 -> 'Google 음성' -> 재생 눌러서 테스트
+        Play 스토어 -> 'Google TTS' 검색 -> 'Speech Recognition & Synthesis' 업데이트
+         */
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener(){
             @Override
             public void onInit(int status) {
