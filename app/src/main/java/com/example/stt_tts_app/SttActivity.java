@@ -47,6 +47,8 @@ public class SttActivity extends AppCompatActivity {
         recognizer_intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         recognizer_intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         recognizer_intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.KOREAN);
+        recognizer_intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 10000);
+
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -82,8 +84,12 @@ public class SttActivity extends AppCompatActivity {
 
             @Override
             public void onError(int i) {
-                if(i == SpeechRecognizer.ERROR_NO_MATCH){
+                if(i == SpeechRecognizer.ERROR_SPEECH_TIMEOUT){
                     // 일정 시간 동안 말이 없으면 발생하는 에러... 원인 분석이 필요 - 일단은 리스너 재실행
+                    if (flag == true) {
+                        speech_recognizer.startListening(recognizer_intent);
+                    }
+                }else if(i == SpeechRecognizer.ERROR_NO_MATCH){
                     if (flag == true) {
                         speech_recognizer.startListening(recognizer_intent);
                     }
@@ -108,6 +114,10 @@ public class SttActivity extends AppCompatActivity {
             @Override
             public void onPartialResults(Bundle bundle) {
                 stt_text.setText(stt_text.getText().toString()+"\n"+"부분 Results");
+                ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                if (matches != null && !matches.isEmpty()) {
+                    stt_text.setText(stt_text.getText().toString() + "\n" + matches.get(0));
+                }
             }
 
             @Override
