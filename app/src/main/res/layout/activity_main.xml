@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,13 +10,13 @@
 
     <!-- 왼쪽 메뉴 영역 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/go_stt_btn"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:textSize="24sp"
             android:text="STT 페이지 이동"/>
@@ -57,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="24sp"
                     android:text="안녕하세요"/>
 
             </LinearLayout>
